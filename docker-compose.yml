@@ -8,3 +8,27 @@ services:
             - "8000:8000" # specify port forewarding
         volumes:
             - ./:/app
+    mysql:
+      image: mysql:5.7
+      restart: always
+      environment:
+        MYSQL_DATABASE: 'laravel'
+        # You can use whatever password you like
+        MYSQL_PASSWORD: ''
+        # Password for root access
+        MYSQL_ROOT_PASSWORD: ''
+        # allow empty password
+        MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+      ports:
+        # <Port exposed> : < MySQL Port running inside container>
+        - '3307:3306'
+      expose:
+        # Opens port 3306 on the container
+        - '3306'
+        # Where our data will be persisted
+      volumes:
+        - ./mysql/.data:/var/lib/mysql
+        # Names our volume
+volumes:
+  mysql:
+  laravel:
